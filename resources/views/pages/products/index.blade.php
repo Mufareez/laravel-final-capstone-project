@@ -16,10 +16,10 @@
         <div class="page-header">
             <div class="row">
                 <div class="col">
-                    <h3 class="page-title">Brand Records</h3>
+                    <h3 class="page-title">Product Records</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Brand Records</li>
+                        <li class="breadcrumb-item active">Product Records</li>
                     </ul>
                 </div>
             </div>
@@ -30,7 +30,7 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title mb-2">Brand Records</h5>
+                        <h5 class="card-title mb-2">Product Records</h5>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -38,24 +38,44 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
+                                        <th>SKU</th>
+                                        <th>Product Name</th>
+                                        <th>Cost Price</th>
+                                        <th>Selling Price</th>
                                         <th>Brand Name</th>
-                                        <th>Description</th>
+                                        <th>Category Name</th>
+                                        <th>Product Image</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                @foreach ($values as $brand)
+                                @foreach ($products as $product)
                                     <tbody>
                                         <tr>
-                                            <td>{{ $brand->id }}</td>
-                                            <td>{{ $brand->brand_name }}</td>
-                                            <td>{{ $brand->description ?? 'N/A' }}</td>
+                                            <td>{{ $product->id }}</td>
+                                            <td>{{ $product->sku }}</td>
+                                            <td>{{ $product->product_name }}</td>
+                                            <td>{{ $product->cost_price }}</td>
+                                            <td>{{ $product->selling_price }}</td>
+                                            <td>{{ $product->brand->brand_name }}</td>
+                                            <td>{{ $product->category->category_name }}</td>
                                             <td>
-                                                <a href="{{ route('brands.edit', $brand) }}" class="btn btn-primary">Edit</a>
-                                                <form id="deleteRecord-{{ $brand->id }}" action="{{ route('brands.destroy', $brand) }}" method="POST"
+                                                @if ($product->product_image)
+                                                    <img src="{{ asset('images/product/' . $product->product_image) }}"
+                                                        alt="Product Image" width="50px" height="50px">
+                                                @else
+                                                    <img src="{{ asset('images/product/default-img.png') }}"
+                                                        alt="No Image" width="50px" height="50px">
+
+                                                @endif
+                                            </td>
+
+                                            <td>
+                                                <a href="{{ route('products.edit', $product) }}" class="btn btn-primary">Edit</a>
+                                                <form id="deleteRecord-{{ $product->id }}" action="{{ route('products.destroy', $product) }}" method="POST"
                                                     style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="button" onclick="confirmDelete({{ $brand->id}})" class="btn btn-danger">Delete</button>
+                                                    <button type="button" onclick="confirmDelete({{ $product->id}})" class="btn btn-danger">Delete</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -86,5 +106,5 @@
             });
         }
     </script>
-    
+
 @endsection

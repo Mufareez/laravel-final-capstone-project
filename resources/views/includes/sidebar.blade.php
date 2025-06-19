@@ -61,10 +61,10 @@
                             class="menu-arrow"></span></a>
                     <ul>
                         <li><a href="{{ route('products.create') }}" class="{{set_active('products.create')}}">Product Add</a></li>
+                        <li><a href="{{ route('products.index') }}" class="{{set_active('products.index')}}">Product List</a></li>
 
                     </ul>
                 </li>
-
 
             </ul>
         </div>
