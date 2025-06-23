@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('purchase_items', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("purchase_id")->constrained()->onDelete("cascade");
+            $table->foreignId("product_id")->constrained()->onDelete("cascade");
+            $table->integer('quantity');
+            $table->decimal('cost_price', 10, 2);
+            $table->decimal('selling_price', 10, 2);
+            $table->string('expire_date')->nullable();
             $table->timestamps();
         });
     }

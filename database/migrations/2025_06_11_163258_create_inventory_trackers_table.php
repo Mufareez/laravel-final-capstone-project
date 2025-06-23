@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('inventory_trackers', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("product_id")->constrained()->onDelete("cascade");
+            $table->enum('inventory_type', ['purchase', 'sale']);
+            $table->decimal('quantity', 10, 2);
             $table->timestamps();
         });
     }
