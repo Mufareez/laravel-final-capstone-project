@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sale;
+use App\Models\Customer;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
@@ -20,7 +22,9 @@ class SaleController extends Controller
      */
     public function create()
     {
-        //
+         $products=Product::all();
+        $customers=Customer::all();
+        return view('pages.sales.create', compact('products', 'customers'));
     }
 
     /**

@@ -12,7 +12,8 @@ class InventoryTrackerController extends Controller
      */
     public function index()
     {
-        //
+        $totalStockByProducts=InventoryTracker::select('product_id')->selectRaw('SUM(quantity) as total_quantity')->groupBy('product_id')->with('product')->get();
+       return view('pages.inventory_trackers.index', compact('totalStockByProducts'));
     }
 
     /**

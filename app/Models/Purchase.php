@@ -12,7 +12,7 @@ class Purchase extends Model
         'purchase_date',
     ];
 
-    public function items()
+    public function purchasItems()
     {
         return $this->hasMany(PurchaseItem::class);
     }

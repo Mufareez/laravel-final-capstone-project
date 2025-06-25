@@ -18,7 +18,8 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        //
+        $purchases = Purchase::with('supplier','purchasItems.product')->get();
+        return view('pages.purchases.index', compact('purchases'));
     }
 
     /**
@@ -26,7 +27,6 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-
         $products=Product::all();
         $suppliers=Supplier::all();
         return view('pages.purchases.create', compact('products', 'suppliers'));
@@ -37,7 +37,6 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'supplier_id' => 'required|exists:suppliers,id',
             'purchase_date' => 'required',
@@ -69,7 +68,6 @@ class PurchaseController extends Controller
             }
 
             foreach($request->product_id as $index => $productId) {
-
                InventoryTracker::create([
                     'product_id'     => $productId,
                     'quantity'       => $request->quantity[$index],

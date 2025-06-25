@@ -7,6 +7,8 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\InventoryTrackerController;
+use App\Http\Controllers\SaleController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -49,6 +51,8 @@ Route::resource('suppliers', SupplierController::class);
 Route::resource('customers', CustomerController::class);
 Route::resource('products', ProductController::class);
 Route::resource('purchases', PurchaseController::class);
+Route::resource('sales', SaleController::class);
+Route::resource('current-stocks', InventoryTrackerController::class);
 
 
 // or

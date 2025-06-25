@@ -77,6 +77,23 @@
                     </ul>
                 </li>
 
+                <li class="submenu {{ set_active(['sales.create']) }}">
+                    <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span>Sales</span> <span
+                            class="menu-arrow"></span></a>
+                    <ul>
+                        <li><a href="{{ route('sales.create') }}" class="{{set_active('sales.create')}}">Sale Add</a></li>
+                    </ul>
+                </li>
+
+
+                <li class="submenu {{ set_active(['current-stocks.index']) }}">
+                    <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> Current Stock</span> <span
+                            class="menu-arrow"></span></a>
+                    <ul>
+                        <li><a href="{{ route('current-stocks.index') }}" class="{{set_active('current-stocks.index')}}">Current Stock List</a></li>
+                    </ul>
+                </li>
+
             </ul>
         </div>
     </div>
