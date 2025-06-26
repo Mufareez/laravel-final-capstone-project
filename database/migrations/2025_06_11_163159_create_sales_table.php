@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("customer_id")->constrained()->onDelete("cascade");
+            $table->string("sale_date");
+            $table->string("invoice_number");
+            $table->decimal("total",18, 2)->nullable();
+            $table->decimal("final_discount", 18, 2)->nullable();
+            $table->decimal("final_total", 18, 2)->nullable();
             $table->timestamps();
         });
     }
