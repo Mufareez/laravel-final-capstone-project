@@ -17,7 +17,8 @@ class SaleController extends Controller
      */
     public function index()
     {
-        //
+        $sales = Sale::with(['customer','saleItems.product'])->orderBy('id', 'desc')->get();
+        return view('pages.sales.index', compact('sales'));
     }
 
     /**
@@ -115,7 +116,7 @@ class SaleController extends Controller
             }
 
             DB::commit();
-             return redirect()->route('sales.create')->with('success', 'Sales created successfully.');
+             return redirect()->route('sales.invoice', $sale->id)->with('success', 'Sales created successfully.');
 
         }
 
@@ -125,6 +126,14 @@ class SaleController extends Controller
         }
     }
 
+
+    public function invoice($id)
+    {
+        $sales = Sale::with('customer','saleItems.product')->findOrFail($id);
+      
+
+        return view('pages.sales.invoice', compact('sales'));
+    }
 
 
     /**

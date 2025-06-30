@@ -52,6 +52,7 @@ Route::resource('customers', CustomerController::class);
 Route::resource('products', ProductController::class);
 Route::resource('purchases', PurchaseController::class);
 Route::resource('sales', SaleController::class);
+Route::get('sales-invoice/{id}', [SaleController::class,'invoice'])->name('sales.invoice');
 Route::resource('current-stocks', InventoryTrackerController::class);
 
 
