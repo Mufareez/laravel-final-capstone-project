@@ -37,30 +37,32 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::resource('brands', BrandController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('suppliers', SupplierController::class);
+    Route::resource('customers', CustomerController::class);
+    Route::resource('products', ProductController::class);
+    Route::resource('purchases', PurchaseController::class);
+    Route::resource('sales', SaleController::class);
+    Route::get('sales-invoice/{id}', [SaleController::class,'invoice'])->name('sales.invoice');
+    Route::resource('current-stocks', InventoryTrackerController::class);
+
 });
 
 require __DIR__.'/auth.php';
 
 
-Route::resource('brands', BrandController::class);
-Route::resource('categories', CategoryController::class);
-Route::resource('suppliers', SupplierController::class);
-Route::resource('customers', CustomerController::class);
-Route::resource('products', ProductController::class);
-Route::resource('purchases', PurchaseController::class);
-Route::resource('sales', SaleController::class);
-Route::get('sales-invoice/{id}', [SaleController::class,'invoice'])->name('sales.invoice');
-Route::resource('current-stocks', InventoryTrackerController::class);
-
 
 // or
 
     // Route::get('/create', [BrandController::class, 'create'])->name('brands.create');
-    // Route::get('/index', [BrandController::class, 'index'])->name('brands.index');
-    // Route::post('/store', [BrandController::class, 'store'])->name('brands.store');
+    // Route::get('/', [BrandController::class, 'index'])->name('brands.index');
+    // Route::post('/', [BrandController::class, 'store'])->name('brands.store');
     // Route::get('/{id}/edit', [BrandController::class, 'edit'])->name('brands.edit');
     // Route::put('/{id}', [BrandController::class, 'update'])->name('brands.update');
     // Route::delete('/{id}', [BrandController::class, 'destroy'])->name('brands.destroy');

@@ -24,7 +24,6 @@ class BrandController extends Controller
 
      public function create()
     {
-
         return view('pages.brands.create');
     }
 
@@ -88,7 +87,6 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
-        dd($brand);
         $brand->delete(); //it will delete the record from the database
         return redirect()->route('brands.index')->with('success', 'Brand deleted successfully.');
     }
