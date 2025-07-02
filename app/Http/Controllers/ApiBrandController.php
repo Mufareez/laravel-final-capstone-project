@@ -27,18 +27,12 @@ class ApiBrandController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-
-    /**
-     * Store a newly created resource in storage.
-     */
+ 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
 
-            'brand_name'        => 'required|string|max:255',
+            'brand_name'  => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
         ]);
 
@@ -69,14 +63,22 @@ class ApiBrandController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Brand $brand)
-    {
 
-        return response()->json([
-            'status'  => '200',
-            'message' => 'Brand retrieved successfully.',
-            'data'    => $brand,
-        ]);
+    public function show($id)
+    {
+        $brand = Brand::find($id);
+        if (is_null($brand)) {
+            return response()->json([
+                'status'  => '404',
+                'message' => 'Brand not found.',
+            ], 404);
+        } else {
+            return response()->json([
+                'status'  => '200',
+                'message' => 'Brand retrieved successfully.',
+                'data'    => $brand,
+            ]);
+        }
     }
 
     /**
@@ -84,20 +86,57 @@ class ApiBrandController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Brand $brand)
-    {
-        $brand->delete();
+        $brand = Brand::find($id);
+
+        if (is_null($brand)) {
+            return response()->json([
+                'status'  => '404',
+                'message' => 'Brand not found.',
+            ], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'brand_name'  => 'required|string|max:255',
+            'description' => 'nullable|string|max:1000',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status'  => '422',
+                'message' => 'Validation failed.',
+                'errors'  => $validator->errors(),
+            ], 422);
+        }
+
+        $brand->update([
+            'brand_name'  => $request->brand_name,
+            'description' => $request->description,
+        ]);
 
         return response()->json([
             'status'  => '200',
-            'message' => 'Brand deleted successfully.',
+            'message' => 'Brand updated successfully.',
+            'data'    => $brand,
         ]);
+    }
 
+    
+    public function destroy($id)
+    {
+        $brand = Brand::find($id);
+
+        if (is_null($brand)) {
+            return response()->json([
+                'status'  => '404',
+                'message' => 'Brand not found.',
+            ], 404);
+        } else {
+            $brand->delete();
+            return response()->json([
+                'status'  => '200',
+                'message' => 'Brand deleted successfully.',
+            ]);
+        }
     }
 }
