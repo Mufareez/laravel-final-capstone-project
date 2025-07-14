@@ -7,7 +7,7 @@
         @if (session('success'))
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
-                    toastr.success('{{ session('success') }}', 'Success');
+                    toastr.success("{{ session('success') }}", 'Success');
                 });
             </script>
         @endif
